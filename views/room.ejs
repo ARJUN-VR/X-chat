@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat APP</title>
+    <link rel="stylesheet" href="/area.css">
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+<body>
+   <div class=" d-flex" style="height: 754px;">
+    <div class="users-online d-flex justify-content-center">
+        <h1 style="color: #fff;">Users Online</h1>
+        <div class="users"></div>
+    </div>
+    <div style="background-color: rgb(70, 65, 65); width: 100%; display: flex; flex-direction: column; height: 100vh;">
+        <div class="chat-area-roomname d-flex justify-content-center">
+            <div><h1 style="color: white;" class="roomMessage"></h1></div>
+        </div>
+        <div class="chat-area-typing" style="flex-grow: 1;">
+            <div id="output" style="color: #fff;"></div>
+            <div id="feedback"></div>
+        </div>
+        <div class="prompt-area d-flex justify-content-center align-items-center">
+            <input type="text" style="width: 80%;color: white;background-color: rgb(32, 30, 30);;height: 40%;">
+            <button class="bg-success" style="height: 40%;">send</button>
+        </div>
+    </div>
+    
+        
+ 
+   </div>
+   
+
+</body>
+</html>
+
+<script>
+var output = document.getElementById('output');
+var feedback = document.getElementById('feedback');
+var message = document.getElementById('message');
+var sendButton = document.getElementById('send');
+
+var users = document.querySelector('.users')
+var roomMessage=document.querySelector('.roomMessage')
+
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+const username = urlParams.get('username');
+const roomname = urlParams.get('roomname');
+
+roomMessage.innerHTML=`Connected in room ${roomname}`
+
+const socket = io.connect('http://localhost:3000');
+
+
+socket.emit('joined-user', {
+    username: username,
+    roomname: roomname
+})
+
+socket.on('joined-user', (data) => {
+    output.innerHTML += '<p>--> <strong><em>' + data.username + ' </strong>has Joined the Room</em></p>';
+    console.log(data.username);
+});
+
+
+
+
+
+
+
+   </script>

@@ -1,0 +1,22 @@
+body{
+    background-color: rgb(29, 29, 29);
+}
+
+.transparent-card {
+    background-color: rgba(255, 255, 255, 0.1); /* Adjust the alpha value (last parameter) to control transparency */
+    backdrop-filter: blur(10px); /* Adds a blur effect behind the card (adjust the value as needed) */
+}
+.card-title{
+    color: whitesmoke;
+}
+.form-control{
+    background-color: rgb(75, 72, 72);
+}
+#username::placeholder {
+    color:whitesmoke; /* Change the color to your desired value */
+    opacity: 0.7; /* Adjust the opacity if needed */
+}
+#roomname::placeholder {
+    color:whitesmoke; /* Change the color to your desired value */
+    opacity: 0.7; /* Adjust the opacity if needed */
+}
